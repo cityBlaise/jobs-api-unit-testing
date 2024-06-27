@@ -15,14 +15,14 @@ export const registerUser = async (req, res) => {
     }
 
     password = await bcrypt.hash(password, 10);
-
+    
     const user = await User.create({
       name,
       email,
       password,
     });
 
-    const token = await getJwtToken(user?.id);
+    const token = await getJwtToken(user?._id); 
 
     res.status(201).json({
       token,
@@ -66,7 +66,7 @@ export const loginUser = async (req, res, next) => {
       });
     }
 
-    const token = await getJwtToken(user?.id);
+    const token = await getJwtToken(user?._id);
 
     res.status(200).json({
       token,
